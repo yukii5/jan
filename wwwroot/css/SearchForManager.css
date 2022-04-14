@@ -1,0 +1,121 @@
+﻿table {
+    border-collapse: collapse;
+    text-align: center;
+    font-size: 13px;
+    box-sizing: border-box;
+    width: 1350px;
+}
+
+thead, tbody {
+    display: block;
+}
+
+tbody {
+    max-height: 53vh;
+    overflow-y: scroll;
+}
+
+th, td {
+    vertical-align: middle;
+    border: solid 1px #606060;
+    table-layout: fixed;
+    box-sizing: border-box;
+}
+
+.c_w450 {
+    width: 450px;
+    min-width: 450px;
+}
+
+.c_w132 {
+    width: 134px;
+    min-width: 134px;
+}
+
+td input {
+    vertical-align: bottom;
+}
+
+td label {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+    td span.c_link label:hover {
+        cursor: pointer;
+    }
+
+#i_clear2 {
+    font-size: 14px;
+    width: 75px;
+    line-height: 1.6;
+}
+
+#i_load2 {
+    font-size: 14px;
+    width: 45px;
+    line-height: 1.6;
+    text-align-last: justify;
+    padding: 3px 15px;
+    margin-top: 10px;
+}
+
+.search {
+    font-size: 14px;
+    margin: 0;
+}
+
+#i_container {
+    width: min-content;
+    margin-left: auto;
+    margin-right: auto;
+    height: auto;
+}
+
+#search_frame {
+    position: relative;
+}
+
+    #search_frame > div {
+        width: 1000px;
+    }
+
+#search_num {
+    line-height: 30px;
+    margin: 30px 0px 0px 0px;
+}
+
+#btn_frame {
+    position: relative;
+    top: -60px;
+    float: right;
+    width: 80px;
+    height: 30px;
+}
+
+#i_list {
+    margin: 0 auto;
+}
+
+.c_titleRow {
+    height: 23px;
+    box-shadow: 0 -1px inset #000000;
+}
+
+#month_frame {
+    margin-top: 20px;
+}
+
+.c_tips {
+    font-size: 8px;
+    color: #808080;
+    margin-left: 4px;
+}
+
+.c_link {
+    color: #0033cc;
+    text-decoration: underline;
+}
+
+

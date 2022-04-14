@@ -1,0 +1,86 @@
+﻿@using App.Common
+@using ReportForm.Helpers
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using ReportForm.Common
+
+@model Achievement.SearchForManager.Models.SearchForManagerModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "検索一覧";
+    ViewData["Header"] = "検索一覧";
+}
+@section header{
+    <link href="~/@RFHelper.GetFolderPath(ViewContext)/css/SearchForManager.css" rel="stylesheet" asp-append-version="@Global.IsAddVersion">
+    <script src="~/@RFHelper.GetFolderPath(ViewContext)/js/SearchForManager.js" type="text/javascript" asp-append-version="@Global.IsAddVersion"></script>
+    @foreach (var uri in Model.SearchApiUriList)
+    {
+        <meta name="@String.Format("{0}_uri", uri.Key)" content="@uri.Value" />
+    }
+    <meta name="range" content="@Model.Range" />
+    <meta name="range_none" content="@SecureLogic.SEARCH_RANGE.NONE" />
+    <meta name="range_myself" content="@SecureLogic.SEARCH_RANGE.MYSELF" />
+    <meta name="range_branch" content="@SecureLogic.SEARCH_RANGE.BRANCH" />
+    <meta name="range_pref" content="@SecureLogic.SEARCH_RANGE.PREF" />
+    <meta name="range_office" content="@SecureLogic.SEARCH_RANGE.OFFICE" />
+    <meta name="range_all" content="@SecureLogic.SEARCH_RANGE.ALL" />
+}
+@section version{
+    <p class='version_info'>バージョン：1.1.1.0</p>
+}
+<main>
+    <div id="i_container">
+        <div id="search_frame">
+            <div>
+                <div style="display: inline-block;">
+                    <p class="search">所属支社</p>
+                    <select class="c_w132 search" id="i_office" @RFHelper.SearchFormAtJob(Model.Range, "office")>
+                        <option value="a" selected=""></option>
+                        @foreach (var office in Model.OfficeList)
+                        {
+                            <!option value="@office.OfficeCode" @Model.IsSelected("officeManager", office.OfficeCode, Model.Range)>@office.OfficeName</!option>
+                        }
+                    </select>
+                </div>
+                <div style="display: inline-block;">
+                    <p class="search">所属県</p>
+                    <select class="c_w132 search" id="i_pref" @RFHelper.SearchFormAtJob(Model.Range, "pref", Model.SearchLog.ContainsKey("office"))>
+                        <option value="" selected=""></option>
+                        @foreach (var pref in Model.PrefList)
+                        {
+                            <!option value="@pref.PrefCode" @Model.IsSelected("prefManager", pref.PrefCode, Model.Range)>@pref.PrefName</!option>
+                        }
+                    </select>
+                </div>
+
+                <div style="display: inline-block;">
+                    <p class="search">所属支店</p>
+                    <select class="c_w132 search" id="i_branch" @RFHelper.SearchFormAtJob(Model.Range, "branch", Model.SearchLog.ContainsKey("pref"))>
+                        <option value="" selected=""></option>
+                        @foreach (var branch in Model.BranchList)
+                        {
+                            <!option value="@branch.BranchCode" @Model.IsSelected("branchManager", branch.BranchCode, Model.Range)>@branch.BranchName</!option>
+                        }
+                    </select>
+                </div>
+
+                <div id="month_frame">
+                    <span>参照年月</span>
+                    <input type="text" id="i_month" class="c_w132 c_date" maxlength="6" value="@Model.SetMonth()" />
+                    <span class="c_tips">※同年度4月～参照年月</span>
+                </div>
+                <div id="btn_frame">
+                    <label class="c_btnLb btnGreen" for="i_clear" id="i_clear2">条件クリア</label>
+                    <input id="i_clear" type="button" style="display: none;">
+                    <label class="c_btnLb btnGreen" for="i_load" id="i_load2">検索</label>
+                    <input class="btn_search" id="i_load" type="button" style="display: none;">
+                </div>
+                <div>
+                    <p id="search_num" style="">検索結果0件</p>
+                </div>
+            </div>
+        </div>
+        <form id="i_form">
+            @await Component.InvokeAsync("SearchManagerList", Model.SearchArg)
+        </form>
+    </div>
+</main>

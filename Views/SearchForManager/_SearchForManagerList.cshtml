@@ -1,0 +1,33 @@
+﻿@model Achievement.SearchForManager.Models.SeachListModel
+<table id="i_list">
+    <thead>
+        <tr class="c_titleRow">
+            <th class="c_w450">所属支社</th>
+            <th class="c_w450">所属県</th>
+            <th class="c_w450">所属支店</th>
+        </tr>
+    </thead>
+    <tbody id="i_listbody" data-count="@Model.UserList.Count()">
+
+        @foreach (var user in Model.UserList)
+        {
+        <tr>
+            <td class="c_w450">
+                <span class="c_link" id="DisaLink">
+                    <label id="num"><input type="radio" class="c_user" value="Report?UID=@user.OfficeCode&TO=@Model.ReportMonth" style="display:none;" @Model.IsDisabled("officeManager", user.OfficeCode, Model.authority)onload="firstscript();">@user.OfficeName</label>
+                </span>
+            </td>
+            <td class="c_w450">
+                <span class="c_link" id="DisaLink">
+                    <label id="num"><input type="radio" class="c_user" value="Report?UID=@user.PrefCode&TO=@Model.ReportMonth" style="display:none;" @Model.IsDisabled("prefManager", user.PrefCode, Model.authority)onload="firstscript();">@user.PrefName</label>
+                </span>
+            </td>
+            <td class="c_w450" >
+                <span class="c_link" id="DisaLink">
+                    <label id="num"><input type="radio" class="c_user" value="Report?UID=@user.BranchCode&TO=@Model.ReportMonth" style="display:none;" @Model.IsDisabled("branchManager", user.BranchCode, Model.authority)onload="firstscript();">@user.BranchName</label>
+                </span>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
